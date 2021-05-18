@@ -34,7 +34,7 @@ class Aadhaar:
     def get_name(self):
         name = ''
         try:
-            name = re.search('\n(.*)\n\n', self.img_data).group()
+            name = re.search('\n\n(.*)\n', self.img_data).group()
             name = re.sub('\W+', ' ', name).strip()
         except Exception as error:
             print('Error in parsing name ::', error)
