@@ -1,16 +1,28 @@
-import io
-import pytesseract
-from PIL import Image
-import requests
-import re
+import json
+import logging
 
-from cards.aadhaar import Aadhaar
+from flask import Flask, jsonify, request
+from handler import CardHandler
 
-# response = requests.get('https://haptikappimg.haptikapi.com/uploads/b61e9f97a524696e2815f8e27f41f62e.jpeg')
+# creating a Flask app
+app = Flask(__name__)
 
-# img = Image.open(io.BytesIO(response.content))
-img_data = pytesseract.image_to_string('/home/santhosh/Downloads/aadhaar.jpeg', lang='eng')
-print(img_data)
-aadhaar_data = Aadhaar(img_data).front_aadhar_data()
+logging.basicConfig(level=logging.DEBUG)
 
-print("Aadhaar data:: ", aadhaar_data)
+
+@app.route('/', methods=['POST'])
+def home():
+    if request.method == 'POST':
+        logging.debug("Request body:: {}".format(request.data))
+        request_body = json.loads(request.data)
+
+        if request_body.get('url'):
+            handler = CardHandler(request_body=request_body)
+        else:
+            return "No image url found"
+        card_data = handler.extract_card_data()
+        return jsonify(card_data)
+
+
+# By default flask runs on the port 5000
+app.run()

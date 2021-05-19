@@ -14,22 +14,22 @@ class Aadhaar:
     def __init__(self, img_data) -> None:
         self.img_data = img_data
 
-    def front_aadhar_data(self) -> dict:
-        aadhar_data = {
-            'aadhar_id': self.get_aadhar_id(),
+    def front_aadhaar_data(self) -> dict:
+        aadhaar_data = {
+            'aadhaar_id': self.get_aadhaar_id(),
             'name': self.get_name(),
             'dob': self.get_dob(),
             'gender': self.get_gender()
         }
-        return aadhar_data
+        return aadhaar_data
 
-    def get_aadhar_id(self):
-        aadhar_id = ''
+    def get_aadhaar_id(self):
+        aadhaar_id = ''
         try:
-            aadhar_id = re.search('[0-9]{4} [0-9]{4} [0-9]{4}', self.img_data).group()
+            aadhaar_id = re.search('[0-9]{4} [0-9]{4} [0-9]{4}', self.img_data).group()
         except Exception as error:
-            print('Error in parsing aadhar id::', error)
-        return aadhar_id
+            print('Error in parsing aadhaar id::', error)
+        return aadhaar_id
 
     def get_name(self):
         name = ''
