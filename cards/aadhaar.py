@@ -40,6 +40,10 @@ class Aadhaar:
                 lines.append(line)
         self.processed_data = '\n'.join(lines)
 
+        print(self.img_data)
+        print('+'*25)
+        print(self.processed_data)
+
     def front_aadhaar_data(self) -> dict:
         self.preprocess_data()
         aadhaar_data = {
@@ -60,7 +64,8 @@ class Aadhaar:
 
     def get_name(self):
         try:
-            return max(re.findall('(?:^|\s[A-Z][a-z]*)+',self.processed_data), key=len)
+            print(re.findall('(?:(?:^|\s)[A-Z][a-z]*)+',self.processed_data))
+            return max(re.findall('(?:(?:^|\s)[A-Z][a-z]*)+',self.processed_data), key=len)
         except Exception as e:
             print(f'Error in Name Detection: {e}')
         return None

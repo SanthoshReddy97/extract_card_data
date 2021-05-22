@@ -69,7 +69,7 @@ class CardHandler:
         """
         if self.request_body.get('type') == 'aadhaar':
             card_data = Aadhaar(self.extracted_data).front_aadhaar_data()
-        if self.request_body.get('type') == 'pan':
+        elif self.request_body.get('type') == 'pan':
             card_data = Pan(self.extracted_data).get_pan_details()
         else:
             card_data = {

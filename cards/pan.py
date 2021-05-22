@@ -36,6 +36,9 @@ class Pan:
                 lines.append(line)
         self.processed_data = '\n'.join(lines)
 
+        print(self.img_data)
+        print('+'*25)
+        print(self.processed_data)
     def get_pan_details(self) -> dict:
         self.preprocess_data()
         names = self.get_names()
